@@ -1,0 +1,14 @@
+# VIA_ENABLE = yes
+# VIAL_ENABLE = yes
+# VIALRGB_ENABLE = yes
+# VIAL_TAP_DANCE_ENABLE = no
+TAP_DANCE_ENABLE = yes
+COMBO_ENABLE = yes
+KEY_OVERRIDE_ENABLE = yes
+RGB_MATRIX_ENABLE = yes
+ENCODER_MAP_ENABLE = yes
+KEY_LOCK_ENABLE = yes
+VPATH += keyboards/keychron/common
+SRC += keychron_common.c
+CONSOLE_ENABLE = yes
+SRC += features/achordion.c
