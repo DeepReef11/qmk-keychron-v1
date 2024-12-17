@@ -15,6 +15,7 @@
 // #define PERMISSIVE_HOLD_PER_KEY
 #define QUICK_TAP_TERM 1
 
+#define COMBO_SHOULD_TRIGGER
 
 
 /* Custom config */
@@ -156,6 +157,8 @@
 #define IK_B 64
 #define IK_N 65
 #define IK_M 66
+
+#define IK_RALT 76
 
 #define IK_PGUP 44
 #define IK_PGDOWN 58

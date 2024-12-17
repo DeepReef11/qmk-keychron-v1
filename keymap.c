@@ -20,11 +20,11 @@
 #include "print.h"
 
 void keyboard_post_init_user(void) {
-  // Customise these values to desired behaviour
-  debug_enable=true;
-  debug_matrix=true;
-  //debug_keyboard=true;
-  //debug_mouse=true;
+    // Customise these values to desired behaviour
+    debug_enable = true;
+    debug_matrix = true;
+    // debug_keyboard=true;
+    // debug_mouse=true;
 }
 // clang-format off
 
@@ -75,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //    ├──────┴───────────┼───────────┼───────────┼───────────┼────┼───────┼────┼───────────┼───────────┼───────────┼─────────────┼─────────────┼──────┼───────┘
 //    │        '         │     z     │     x     │     c     │ v  │   b   │ no │     n     │     m     │     b     │      y      │      /      │  up  │
 //    ├──────┬───────────┼───────────┼───────────┴───────────┴────┴───────┴────┴───────────┴───────────┼───────────┼─────────────┼─────┬───────┼──────┼───────┐
-//    │ lctl │   MO(4)   │   MO(3)   │                           LT(2, spc)                            │   lsft    │ LT(6, bspc) │ del │ left  │ down │ rght  │
+//    │ lctl │   MO(4)   │   MO(3)   │                          LT(NAV, spc)                           │   lsft    │ LT(6, bspc) │ del │ left  │ down │ rght  │
 //    └──────┴───────────┴───────────┴─────────────────────────────────────────────────────────────────┴───────────┴─────────────┴─────┴───────┴──────┴───────┘
 [BASEMOD] = LAYOUT_ansi_82(
   KC_ESC     , KC_F1        , KC_F2        , KC_F3        , KC_F4        , KC_F5 , KC_F6 , KC_F7  , KC_F8        , KC_F9        , KC_F10       , KC_F11          , KC_F12  , TG(5)   ,           DF(0)  ,
@@ -83,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   S(KC_COMM) , KC_Q         , KC_W         , KC_E         , KC_R         , KC_T  , TD(0) , KC_Y   , KC_U         , KC_I         , KC_O         , KC_P            , KC_P    , KC_BSLS ,           TG(3)  ,
   KC_F13     , LCTL_T(KC_A) , LSFT_T(KC_S) , LGUI_T(KC_D) , LALT_T(KC_F) , KC_G  , KC_NO , KC_H   , RALT_T(KC_J) , RGUI_T(KC_K) , RSFT_T(KC_L) , RCTL_T(KC_SCLN) ,            KC_ENT ,           TG(4)  ,
   KC_QUOT                   , KC_Z         , KC_X         , KC_C         , KC_V  , KC_B  , KC_NO  , KC_N         , KC_M         , KC_B         , KC_Y            ,           KC_SLSH , KC_UP            ,
-  KC_LCTL    , MO(4)        , MO(3)        ,                                   LT(2, KC_SPC)                                    , KC_LSFT      , LT(6, KC_BSPC)  , KC_DEL  , KC_LEFT , KC_DOWN , KC_RGHT
+  KC_LCTL    , MO(4)        , MO(3)        ,                                  LT(NAV, KC_SPC)                                   , KC_LSFT      , LT(6, KC_BSPC)  , KC_DEL  , KC_LEFT , KC_DOWN , KC_RGHT
 ),
 
 //    ┌─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬──────┐      ┌───────┐
@@ -201,13 +201,48 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 tap_dance_action_t tap_dance_actions[] = {[0] = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_9), LSFT(KC_0)), [1] = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_LBRC), LSFT(KC_RBRC)), [2] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_RBRC), [3] = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_COMM), LSFT(KC_DOT))};
 
+enum combo_events {
+    CAPS_LOCK_COMBO,
+    SHIFT_GUI_COMBO,
+    CTRL_SHIFT_COMBO,
+    CTRL_GUI_COMBO,
+    CTRL_R_COMBO,
+    NAV_SHIFT_COMBO, // New combo
+    COMBO_LENGTH
+};
+
+// Define the key combinations
 const uint16_t PROGMEM combo_g_h[]       = {KC_G, KC_H, COMBO_END};
 const uint16_t PROGMEM combo_lsft_lgui[] = {OSM(MOD_LSFT), OSM(MOD_LGUI), COMBO_END};
 const uint16_t PROGMEM combo_lctl_lsft[] = {OSM(MOD_LCTL), OSM(MOD_LSFT), COMBO_END};
 const uint16_t PROGMEM combo_lctl_lgui[] = {OSM(MOD_LCTL), OSM(MOD_LGUI), COMBO_END};
 const uint16_t PROGMEM combo_lctrl_r[]   = {LCTL_T(KC_A), LSFT_T(KC_S), COMBO_END};
+const uint16_t PROGMEM combo_lt_shift[]  = {LT(NAV, KC_SPC), KC_LSFT, COMBO_END}; // New combo
 
-combo_t key_combos[] = {[0] = COMBO(combo_g_h, KC_CAPS), [1] = COMBO(combo_lsft_lgui, OSM(MOD_LSFT | MOD_LGUI)), [2] = COMBO(combo_lctl_lsft, OSM(MOD_LCTL | MOD_LSFT)), [3] = COMBO(combo_lctl_lgui, OSM(MOD_LCTL | MOD_LGUI)), [4] = COMBO(combo_lctrl_r, LCTL(LSFT(KC_NO)))};
+// Define the combo actions
+combo_t key_combos[COMBO_LENGTH] = {
+    [CAPS_LOCK_COMBO] = COMBO(combo_g_h, KC_CAPS),
+    [SHIFT_GUI_COMBO] = COMBO(combo_lsft_lgui, OSM(MOD_LSFT | MOD_LGUI)),
+    [CTRL_SHIFT_COMBO] = COMBO(combo_lctl_lsft, OSM(MOD_LCTL | MOD_LSFT)),
+    [CTRL_GUI_COMBO] = COMBO(combo_lctl_lgui, OSM(MOD_LCTL | MOD_LGUI)),
+    [CTRL_R_COMBO] = COMBO(combo_lctrl_r, LCTL(LSFT(KC_NO))),
+    [NAV_SHIFT_COMBO] = COMBO(combo_lt_shift, MO(NAVMOD))
+};
+
+static bool ik_ralt_pressed = false; // For combo to layer NAVMOD
+bool        combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
+    switch (combo_index) {
+        case NAV_SHIFT_COMBO:
+
+            if (!ik_ralt_pressed) {
+                return false;
+            }
+            break;
+    }
+
+    return true;
+}
+void process_combo_event(uint16_t combo_index, bool pressed) {}
 
 #define KC_LBRACKET KC_LBRC
 #define KC_RBRACKET KC_RBRC
@@ -258,9 +293,13 @@ const key_override_t *key_overrides[] = {
     NULL // Null terminate the array
 };
 
-
-bool        process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (!process_achordion(keycode, record)) { return false; }
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (!process_achordion(keycode, record)) {
+        return false;
+    }
+    if (record->event.key.row * MATRIX_COLS + record->event.key.col == IK_RALT) {
+        ik_ralt_pressed = record->event.pressed;
+    }
     /* #ifdef CONSOLE_ENABLE */
     /*     print("active modif "); */
     /*     dprint("Debug enabled") */
@@ -270,7 +309,8 @@ bool        process_record_user(uint16_t keycode, keyrecord_t *record) {
     /* dprintf("\n\n\npressed kc: 0x%04X\n", keycode); */
     /* dprintf("LCTL_T: 0x%04X, RCTL_T: 0x%04X, LCTL: 0x%04X\n", LCTL_T(KC_A),RCTL_T(KC_SCLN), KC_LCTL); */
     /*     dprintf("LSFT_T(KC_S): 0x%04X, kc_s: 0x%04X\n\n\n", LSFT_T(KC_S), KC_S); */
-    return true;}
+    return true;
+}
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     // To change tap term per key
@@ -285,11 +325,10 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     /* } */
 }
 void matrix_scan_user(void) {
-  achordion_task();
+    achordion_task();
 }
-bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max)  {
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     // RGB_MATRIX_INDICATOR_SET_COLOR(index, red, green, blue);
-
 
     uint8_t mod_state = get_mods() | get_oneshot_mods();
     /* get_mods(); */
@@ -321,42 +360,42 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max)  {
             rgb_matrix_set_color(IK_F1, 255, 255, 255);
         }
     }
-        switch (get_highest_layer(layer_state | default_layer_state)) {
-            case 6:
-                rgb_matrix_sethsv(HSV_LAYOUT_6);
-                rgb_matrix_set_color(HOME_KEY_LED_INDEX, RGB_LAYOUT_0);
-                break;
-            case 5:
-                rgb_matrix_sethsv(HSV_LAYOUT_5);
-                rgb_matrix_set_color(HOME_KEY_LED_INDEX, RGB_LAYOUT_0);
-                break;
-            case 4:
-                rgb_matrix_sethsv(HSV_LAYOUT_4);
-                rgb_matrix_set_color(HOME_KEY_LED_INDEX, RGB_LAYOUT_0);
-                break;
-            case 3:
-                rgb_matrix_sethsv(HSV_LAYOUT_3); // Cyan
-                rgb_matrix_set_color(HOME_KEY_LED_INDEX, RGB_LAYOUT_0);
-                break;
-            case 2:
-                /* rgb_matrix_set_color(i, RGB_BLUE); */
-                rgb_matrix_sethsv(HSV_LAYOUT_2); // Red
-                rgb_matrix_set_color(HOME_KEY_LED_INDEX, RGB_LAYOUT_0);
-                break;
-            case 1:
-                /* rgb_matrix_set_color(i, RGB_YELLOW); */
-                rgb_matrix_sethsv(HSV_LAYOUT_1); // Green
-                rgb_matrix_set_color(IK_INSERT, RGB_LAYOUT_0);
-                break;
-            case 0:
-                /* rgb_matrix_set_color(i, RGB_GREEN); */
-                rgb_matrix_sethsv(HSV_LAYOUT_0); // Purple
+    switch (get_highest_layer(layer_state | default_layer_state)) {
+        case 6:
+            rgb_matrix_sethsv(HSV_LAYOUT_6);
+            rgb_matrix_set_color(HOME_KEY_LED_INDEX, RGB_LAYOUT_0);
+            break;
+        case 5:
+            rgb_matrix_sethsv(HSV_LAYOUT_5);
+            rgb_matrix_set_color(HOME_KEY_LED_INDEX, RGB_LAYOUT_0);
+            break;
+        case 4:
+            rgb_matrix_sethsv(HSV_LAYOUT_4);
+            rgb_matrix_set_color(HOME_KEY_LED_INDEX, RGB_LAYOUT_0);
+            break;
+        case 3:
+            rgb_matrix_sethsv(HSV_LAYOUT_3); // Cyan
+            rgb_matrix_set_color(HOME_KEY_LED_INDEX, RGB_LAYOUT_0);
+            break;
+        case 2:
+            /* rgb_matrix_set_color(i, RGB_BLUE); */
+            rgb_matrix_sethsv(HSV_LAYOUT_2); // Red
+            rgb_matrix_set_color(HOME_KEY_LED_INDEX, RGB_LAYOUT_0);
+            break;
+        case 1:
+            /* rgb_matrix_set_color(i, RGB_YELLOW); */
+            rgb_matrix_sethsv(HSV_LAYOUT_1); // Green
+            rgb_matrix_set_color(IK_INSERT, RGB_LAYOUT_0);
+            break;
+        case 0:
+            /* rgb_matrix_set_color(i, RGB_GREEN); */
+            rgb_matrix_sethsv(HSV_LAYOUT_0); // Purple
 
-                rgb_matrix_set_color(IK_INSERT, RGB_LAYOUT_1);
-                break;
-            default:
-                break;
-        }
+            rgb_matrix_set_color(IK_INSERT, RGB_LAYOUT_1);
+            break;
+        default:
+            break;
+    }
     for (uint8_t i = led_min; i < led_max; i++) {
         if (host_keyboard_led_state().caps_lock) {
             if (g_led_config.flags[i] & LED_FLAG_KEYLIGHT) {
