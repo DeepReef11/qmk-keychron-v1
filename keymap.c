@@ -185,7 +185,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //    ├─────┴───────┼──────┼──────┼──────┼─────────┼─────────┼──────┼──────┼──────┼──────┼──────┼────────────┼─────┼───────┘
 //    │             │      │      │      │         │         │      │      │      │      │      │            │     │
 //    ├─────┬───────┼──────┼──────┴──────┴─────────┴─────────┴──────┴──────┴──────┼──────┼──────┼──────┬─────┼─────┼───────┐
-//    │     │ TG(6) │  no  │                         aCL2                         │ bspc │ del  │      │     │     │       │
+//    │     │ TG(6) │  no  │                         aCL2                         │ lsft │ bspc │ del  │     │     │       │
 //    └─────┴───────┴──────┴──────────────────────────────────────────────────────┴──────┴──────┴──────┴─────┴─────┴───────┘
 [MOUSE] = LAYOUT_ansi_82(
   KC_TRNS , KC_BRID , KC_BRIU , KC_F3   , KC_F4   , RGB_VAD , RGB_VAI , KC_MPRV , KC_MPLY , KC_MNXT , KC_MUTE , KC_VOLD , KC_VOLU , KC_TRNS ,           TG(6)  ,
@@ -193,7 +193,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS , KC_ESC  , KC_BTN3 , KC_BTN2 , KC_BTN1 , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS ,           KC_TRNS,
   KC_TRNS , KC_ACL0 , KC_WH_D , KC_WH_U , KC_ACL1 , KC_TRNS , KC_TRNS , KC_TRNS , KC_MS_L , KC_MS_D , KC_MS_U , KC_MS_R ,           KC_TRNS ,           KC_TRNS,
   KC_TRNS           , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS ,           KC_TRNS , KC_TRNS          ,
-  KC_TRNS , TG(6)   , KC_NO   ,                               KC_ACL2                               , KC_BSPC , KC_DEL  , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS
+  KC_TRNS , TG(6)   , KC_NO   ,                               KC_ACL2                               , KC_LSFT , KC_BSPC , KC_DEL  , KC_TRNS , KC_TRNS , KC_TRNS
 )
 };
 
