@@ -15,9 +15,11 @@
  */
 
 #include "debug.h"
+#include "quantum.h"
 #include QMK_KEYBOARD_H
 #include "features/achordion.h"
 #include "print.h"
+#include "leader.h"
 
 void keyboard_post_init_user(void) {
     // Customise these values to desired behaviour
@@ -208,7 +210,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //    ├─────────┴─────────┼─────────┼──────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼────────────────┼──────┼───────┘
 //    │       vold        │   no    │  no  │ SGUI(d) │  mprv   │   no    │   no    │   f9    │   f10   │   f11   │   f12   │      kp_/      │  up  │
 //    ├─────────┬─────────┼─────────┼──────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┼─────────┼─────────┼─────────┬──────┼──────┼───────┐
-//    │  lctl   │  lgui   │   no    │                                no                                │   no    │  bspc   │   del   │ left │ down │ rght  │
+//    │  lctl   │  lgui   │   no    │                               f20                                │   no    │  bspc   │   del   │ left │ down │ rght  │
 //    └─────────┴─────────┴─────────┴──────────────────────────────────────────────────────────────────┴─────────┴─────────┴─────────┴──────┴──────┴───────┘
 [FN] = LAYOUT_ansi_82(
   KC_ESC       , KC_F1      , KC_F2      , KC_F3   , KC_F4      , KC_F5      , KC_F6      , KC_F7        , KC_F8      , KC_F9      , KC_F10     , KC_F11     , KC_F12        , KC_DEL  ,           TG(2)  ,
@@ -216,7 +218,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_MUTE      , RGB_VAD    , RGB_VAI    , KC_BRID , KC_BRIU    , KC_MNXT    , KC_NO      , KC_NO        , KC_F5      , KC_F6      , KC_F7      , KC_F8      , KC_NO         , KC_NO   ,           KC_NO  ,
   KC_VOLU      , KC_LCTL    , KC_LSFT    , KC_LGUI , KC_LALT    , KC_MPLY    , KC_NO      , KC_NO        , KC_F1      , KC_F2      , KC_F3      , KC_F4      ,                  KC_ENT ,           KC_NO  ,
   KC_VOLD                   , KC_NO      , KC_NO   , SGUI(KC_D) , KC_MPRV    , KC_NO      , KC_NO        , KC_F9      , KC_F10     , KC_F11     , KC_F12     ,                 KC_PSLS , KC_UP            ,
-  KC_LCTL      , KC_LGUI    , KC_NO      ,                                          KC_NO                                          , KC_NO      , KC_BSPC    , KC_DEL        , KC_LEFT , KC_DOWN , KC_RGHT
+  KC_LCTL      , KC_LGUI    , KC_NO      ,                                         KC_F20                                          , KC_NO      , KC_BSPC    , KC_DEL        , KC_LEFT , KC_DOWN , KC_RGHT
 )
 };
 
@@ -232,6 +234,9 @@ enum combo_events {
     CTRL_GUI_COMBO,
     CTRL_R_COMBO,
     NAV_SHIFT_COMBO, // New combo
+    LEADER,
+    ERE_COMBO, // k+i+r for direct combo
+RALT_COMBO,
     COMBO_LENGTH
 };
 
@@ -243,8 +248,25 @@ const uint16_t PROGMEM combo_lctl_lgui[] = {OSM(MOD_LCTL), OSM(MOD_LGUI), COMBO_
 const uint16_t PROGMEM combo_lctrl_r[]   = {LCTL_T(KC_A), LSFT_T(KC_S), COMBO_END};
 const uint16_t PROGMEM combo_lt_shift[]  = {LT(NAV, KC_SPC), KC_LSFT, COMBO_END}; // New combo
 
+const uint16_t PROGMEM leader_combo[] = {LALT_T(KC_F), KC_R, COMBO_END};
+const uint16_t PROGMEM ere_combo[] = { LALT_T(KC_F), KC_R, LSFT_T(KC_S), COMBO_END };
+const uint16_t PROGMEM ralt_combo[] = { RALT_T(KC_J), KC_U, COMBO_END };
+
 // Define the combo actions
-combo_t key_combos[COMBO_LENGTH] = {[CAPS_LOCK_COMBO] = COMBO(combo_g_h, KC_CAPS), [SHIFT_GUI_COMBO] = COMBO(combo_lsft_lgui, OSM(MOD_LSFT | MOD_LGUI)), [CTRL_SHIFT_COMBO] = COMBO(combo_lctl_lsft, OSM(MOD_LCTL | MOD_LSFT)), [CTRL_GUI_COMBO] = COMBO(combo_lctl_lgui, OSM(MOD_LCTL | MOD_LGUI)), [CTRL_R_COMBO] = COMBO(combo_lctrl_r, LCTL(LSFT(KC_NO))), [NAV_SHIFT_COMBO] = COMBO(combo_lt_shift, MO(NAVMOD))};
+combo_t key_combos[COMBO_LENGTH] = {
+    // combo
+    [CAPS_LOCK_COMBO]  = COMBO(combo_g_h, KC_CAPS),
+    [SHIFT_GUI_COMBO]  = COMBO(combo_lsft_lgui, OSM(MOD_LSFT | MOD_LGUI)),
+    [CTRL_SHIFT_COMBO] = COMBO(combo_lctl_lsft, OSM(MOD_LCTL | MOD_LSFT)),
+    [CTRL_GUI_COMBO]   = COMBO(combo_lctl_lgui, OSM(MOD_LCTL | MOD_LGUI)),
+    [CTRL_R_COMBO]     = COMBO(combo_lctrl_r, LCTL(LSFT(KC_NO))),
+    [NAV_SHIFT_COMBO]  = COMBO(combo_lt_shift, MO(NAVMOD)),
+    [LEADER] = COMBO(leader_combo, QK_LEAD),
+    [ERE_COMBO] = COMBO_ACTION(ere_combo),
+    [RALT_COMBO] = COMBO(ralt_combo, KC_RALT)
+
+};
+
 
 static bool ik_ralt_pressed = false; // For combo to layer NAVMOD
 bool        combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
@@ -256,10 +278,30 @@ bool        combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t 
             }
             break;
     }
-
     return true;
 }
-void process_combo_event(uint16_t combo_index, bool pressed) {}
+void process_combo_event(uint16_t combo_index, bool pressed) {
+    switch (combo_index) {
+        case ERE_COMBO:
+            if (pressed) {
+                SEND_STRING(SS_RALT("s") "ksk"); // ère  On macOS, use SS_LOPT instead of SS_LALT
+                break;
+            }
+    }
+}
+
+void leader_start_user(void) {
+    // Do something when the leader key is pressed
+}
+
+void leader_end_user(void) {
+    // Sequence: HU combo (as leader) then 'r' -> ère
+    // Note: Since keyboard is in US QWERTY but OS is in Colemak-DH
+    // S in QWERTY = 'R' in Colemak-DH
+    if (leader_sequence_one_key(KC_S)) {
+        SEND_STRING(SS_RALT("s") "ksk"); // ère  On macOS, use SS_LOPT instead of SS_LALT
+    }
+}
 
 #define KC_LBRACKET KC_LBRC
 #define KC_RBRACKET KC_RBRC
