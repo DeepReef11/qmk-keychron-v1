@@ -44,6 +44,7 @@ enum layers{
 #define KC_TASK LGUI(KC_TAB)
 #define KC_FLXP LGUI(KC_E)
 
+// The computer has US Colemak-DH layout set, so there are some adjustment from qwerty to Colemak-DH
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //    ┌──────┬──────┬──────┬────┬────┬────┬────┬────┬────┬────┬──────┬───────┬──────┬──────┐      ┌─────────────┐
 //    │ esc  │  f1  │  f2  │ f3 │ f4 │ f5 │ f6 │ f7 │ f8 │ f9 │ f10  │  f11  │ f12  │ del  │      │ DF(BASEMOD) │
