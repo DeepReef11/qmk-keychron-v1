@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //    ├──────┼───────────┼───────────┼───────────┼───────────┼────┼───────┼────┼───────────┼───────────┼───────────┼─────────────────┼─────────────┴───────┤      ├──────────┤
 //    │ f13  │ LCTL_T(a) │ LSFT_T(s) │ LGUI_T(d) │ LALT_T(f) │ g  │  no   │ h  │ RALT_T(j) │ RGUI_T(k) │ RSFT_T(l) │    RCTL_T(;)    │         ent         │      │  TG(4)   │
 //    ├──────┴───────────┼───────────┼───────────┼───────────┼────┼───────┼────┼───────────┼───────────┼───────────┼─────────────────┼─────────────────────┼──────┼──────────┘
-//    │        '         │     z     │     x     │     c     │ v  │   b   │ no │     n     │     m     │     b     │        y        │          /          │  up  │
+//    │        '         │     z     │     x     │     c     │ v  │   b   │ no │     n     │     m     │     -     │        =        │          /          │  up  │
 //    ├──────┬───────────┼───────────┼───────────┴───────────┴────┴───────┴────┴───────────┴───────────┼───────────┼─────────────────┼─────────────┬───────┼──────┼──────────┐
 //    │ lctl │  MO(SYM)  │  MO(NUM)  │                          LT(NAV, spc)                           │   lsft    │ LT(MOUSE, bspc) │ LT(FN, del) │ left  │ down │   rght   │
 //    └──────┴───────────┴───────────┴─────────────────────────────────────────────────────────────────┴───────────┴─────────────────┴─────────────┴───────┴──────┴──────────┘
@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_GRV     , KC_1         , KC_2         , KC_3         , KC_4         , KC_5  , KC_6  , KC_EQL , KC_7         , KC_8         , KC_9         , KC_0               , KC_MINS        , KC_NO   ,           TG(2)   ,
   S(KC_COMM) , KC_Q         , KC_W         , KC_E         , KC_R         , KC_T  , TD(0) , KC_Y   , KC_U         , KC_I         , KC_O         , KC_P               , KC_P           , KC_BSLS ,           TG(3)   ,
   KC_F13     , LCTL_T(KC_A) , LSFT_T(KC_S) , LGUI_T(KC_D) , LALT_T(KC_F) , KC_G  , KC_NO , KC_H   , RALT_T(KC_J) , RGUI_T(KC_K) , RSFT_T(KC_L) , RCTL_T(KC_SCLN)    ,                   KC_ENT ,           TG(4)   ,
-  KC_QUOT                   , KC_Z         , KC_X         , KC_C         , KC_V  , KC_B  , KC_NO  , KC_N         , KC_M         , KC_B         , KC_Y               ,                  KC_SLSH , KC_UP             ,
+  KC_QUOT                   , KC_Z         , KC_X         , KC_C         , KC_V  , KC_B  , KC_NO  , KC_N         , KC_M         , KC_MINS      , KC_EQL             ,                  KC_SLSH , KC_UP             ,
   KC_LCTL    , MO(SYM)      , MO(NUM)      ,                                  LT(NAV, KC_SPC)                                   , KC_LSFT      , LT(MOUSE, KC_BSPC) , LT(FN, KC_DEL) , KC_LEFT , KC_DOWN , KC_RGHT
 ),
 
@@ -95,20 +95,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //    ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼────────────┼─────────┼─────────┼──────┤      ├───────┤
 //    │ RALT(`) │ RALT(1) │ RALT(2) │ RALT(3) │ RALT(4) │ RALT(5) │ RALT(6) │ RALT(=) │ RALT(7) │ RALT(8) │  RALT(9)   │ RALT(0) │ RALT(-) │  no  │      │       │
 //    ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼────────────┼─────────┼─────────┼──────┤      ├───────┤
-//    │  S(,)   │   esc   │ LCTL(z) │ LCTL(x) │ LCTL(v) │ LCTL(b) │   no    │   no    │  S(9)   │  S([)   │     [      │  S(5)   │   no    │  no  │      │  no   │
+//    │  S(,)   │   esc   │ LCTL(z) │ LCTL(x) │ LCTL(v) │ LCTL(b) │   no    │    1    │    2    │    3    │     4      │    5    │   no    │  no  │      │  no   │
 //    ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼────────────┼─────────┼─────────┴──────┤      ├───────┤
 //    │   f13   │  lctl   │  lsft   │  lgui   │  lalt   │   no    │   no    │   no    │  left   │  down   │     up     │  rght   │      ent       │      │  no   │
 //    ├─────────┴─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼────────────┼─────────┼────────────────┼──────┼───────┘
-//    │         /         │   no    │   no    │   no    │   tab   │   no    │   no    │  S(,)   │    =    │    S(1)    │  kp_*   │      kp_/      │  up  │
+//    │         /         │   no    │   no    │   no    │   tab   │   no    │   no    │    6    │    7    │     8      │    9    │       0        │  up  │
 //    ├─────────┬─────────┼─────────┼─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┼────────────┼─────────┼─────────┬──────┼──────┼───────┐
 //    │  lctl   │  lgui   │   no    │                                MO(5)                                │ MO(NAVMOD) │  bspc   │   del   │ left │ down │ rght  │
 //    └─────────┴─────────┴─────────┴─────────────────────────────────────────────────────────────────────┴────────────┴─────────┴─────────┴──────┴──────┴───────┘
 [NAV] = LAYOUT_ansi_82(
   KC_ESC       , KC_F1      , KC_F2      , KC_F3      , KC_F4      , KC_F5      , KC_F6      , KC_F7        , KC_F8      , KC_F9      , KC_F10     , KC_F11     , KC_F12        , KC_DEL  ,           TG(2)  ,
   RALT(KC_GRV) , RALT(KC_1) , RALT(KC_2) , RALT(KC_3) , RALT(KC_4) , RALT(KC_5) , RALT(KC_6) , RALT(KC_EQL) , RALT(KC_7) , RALT(KC_8) , RALT(KC_9) , RALT(KC_0) , RALT(KC_MINS) , KC_NO   ,           KC_TRNS,
-  S(KC_COMM)   , KC_ESC     , LCTL(KC_Z) , LCTL(KC_X) , LCTL(KC_V) , LCTL(KC_B) , KC_NO      , KC_NO        , S(KC_9)    , S(KC_LBRC) , KC_LBRC    , S(KC_5)    , KC_NO         , KC_NO   ,           KC_NO  ,
+  S(KC_COMM)   , KC_ESC     , LCTL(KC_Z) , LCTL(KC_X) , LCTL(KC_V) , LCTL(KC_B) , KC_NO      , KC_1         , KC_2       , KC_3       , KC_4       , KC_5       , KC_NO         , KC_NO   ,           KC_NO  ,
   KC_F13       , KC_LCTL    , KC_LSFT    , KC_LGUI    , KC_LALT    , KC_NO      , KC_NO      , KC_NO        , KC_LEFT    , KC_DOWN    , KC_UP      , KC_RIGHT   ,                  KC_ENT ,           KC_NO  ,
-  KC_SLSH                   , KC_NO      , KC_NO      , KC_NO      , KC_TAB     , KC_NO      , KC_NO        , S(KC_COMM) , KC_EQL     , S(KC_1)    , KC_PAST    ,                 KC_PSLS , KC_UP            ,
+  KC_SLSH                   , KC_NO      , KC_NO      , KC_NO      , KC_TAB     , KC_NO      , KC_NO        , KC_6       , KC_7       , KC_8       , KC_9       ,                    KC_0 , KC_UP            ,
   KC_LCTL      , KC_LGUI    , KC_NO      ,                                           MO(5)                                            , MO(NAVMOD) , KC_BSPC    , KC_DEL        , KC_LEFT , KC_DOWN , KC_RGHT
 ),
 
@@ -156,26 +156,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_NO      , KC_NO         , KC_NO         ,                                         KC_NO                                         , KC_LSFT , KC_BSPC    , KC_DEL  , KC_TRNS , KC_TRNS , KC_TRNS
 ),
 
-//    ┌──────┬──────┬───────────────┬───────────────┬───────────────┬───────────────┬─────┬──────┬──────┬──────┬──────┬──────┬─────┬─────┐     ┌───────┐
-//    │      │      │               │               │               │               │     │      │      │      │      │      │     │     │     │ TG(5) │
-//    ├──────┼──────┼───────────────┼───────────────┼───────────────┼───────────────┼─────┼──────┼──────┼──────┼──────┼──────┼─────┼─────┤     ├───────┤
-//    │  no  │  no  │      no       │      no       │      no       │      no       │ no  │  no  │  no  │  no  │  no  │  no  │ no  │ no  │     │       │
-//    ├──────┼──────┼───────────────┼───────────────┼───────────────┼───────────────┼─────┼──────┼──────┼──────┼──────┼──────┼─────┼─────┤     ├───────┤
-//    │  no  │ esc  │ LCTL(LSFT(z)) │ LCTL(LSFT(x)) │ LCTL(LSFT(v)) │ LCTL(LSFT(b)) │ no  │  no  │  no  │  no  │  no  │  no  │ no  │ no  │     │       │
-//    ├──────┼──────┼───────────────┼───────────────┼───────────────┼───────────────┼─────┼──────┼──────┼──────┼──────┼──────┼─────┴─────┤     ├───────┤
-//    │  no  │ aCL0 │     wh_d      │     wh_u      │     aCL2      │      no       │ no  │ S(-) │ home │ pgdn │ pgup │ end  │  LSFT(4)  │     │       │
-//    ├──────┴──────┼───────────────┼───────────────┼───────────────┼───────────────┼─────┼──────┼──────┼──────┼──────┼──────┼───────────┼─────┼───────┘
-//    │    lsft     │      no       │      no       │      no       │      tab      │ no  │  no  │  no  │  no  │  no  │  no  │     '     │     │
-//    ├──────┬──────┼───────────────┼───────────────┴───────────────┴───────────────┴─────┴──────┴──────┴──────┼──────┼──────┼─────┬─────┼─────┼───────┐
-//    │ lctl │ lgui │     lalt      │                                    no                                    │ lsft │ bspc │ del │     │     │       │
-//    └──────┴──────┴───────────────┴──────────────────────────────────────────────────────────────────────────┴──────┴──────┴─────┴─────┴─────┴───────┘
+//    ┌──────┬──────┬───────────────┬───────────────┬───────────────┬───────────────┬─────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────┬─────┐     ┌───────┐
+//    │      │      │               │               │               │               │     │         │         │         │         │         │     │     │     │ TG(5) │
+//    ├──────┼──────┼───────────────┼───────────────┼───────────────┼───────────────┼─────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────┼─────┤     ├───────┤
+//    │  no  │  no  │      no       │      no       │      no       │      no       │ no  │   no    │   no    │   no    │   no    │   no    │ no  │ no  │     │       │
+//    ├──────┼──────┼───────────────┼───────────────┼───────────────┼───────────────┼─────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────┼─────┤     ├───────┤
+//    │  no  │ esc  │ LCTL(LSFT(z)) │ LCTL(LSFT(x)) │ LCTL(LSFT(v)) │ LCTL(LSFT(b)) │ no  │ LSFT(1) │ LSFT(2) │ LSFT(3) │ LSFT(4) │ LSFT(5) │ no  │ no  │     │       │
+//    ├──────┼──────┼───────────────┼───────────────┼───────────────┼───────────────┼─────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────┴─────┤     ├───────┤
+//    │  no  │ aCL0 │     wh_d      │     wh_u      │     aCL2      │      no       │ no  │  S(-)   │  home   │  pgdn   │  pgup   │   end   │  LSFT(4)  │     │       │
+//    ├──────┴──────┼───────────────┼───────────────┼───────────────┼───────────────┼─────┼─────────┼─────────┼─────────┼─────────┼─────────┼───────────┼─────┼───────┘
+//    │    lsft     │      no       │      no       │      no       │      tab      │ no  │ LSFT(6) │ LSFT(7) │ LSFT(8) │ LSFT(9) │ LSFT(0) │     '     │     │
+//    ├──────┬──────┼───────────────┼───────────────┴───────────────┴───────────────┴─────┴─────────┴─────────┴─────────┼─────────┼─────────┼─────┬─────┼─────┼───────┐
+//    │ lctl │ lgui │     lalt      │                                        no                                         │  lsft   │  bspc   │ del │     │     │       │
+//    └──────┴──────┴───────────────┴───────────────────────────────────────────────────────────────────────────────────┴─────────┴─────────┴─────┴─────┴─────┴───────┘
 [NAVMOD] = LAYOUT_ansi_82(
-  KC_TRNS , KC_TRNS , KC_TRNS          , KC_TRNS          , KC_TRNS          , KC_TRNS          , KC_TRNS , KC_TRNS    , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS ,           TG(5)  ,
-  KC_NO   , KC_NO   , KC_NO            , KC_NO            , KC_NO            , KC_NO            , KC_NO   , KC_NO      , KC_NO   , KC_NO   , KC_NO   , KC_NO   , KC_NO   , KC_NO   ,           KC_TRNS,
-  KC_NO   , KC_ESC  , LCTL(LSFT(KC_Z)) , LCTL(LSFT(KC_X)) , LCTL(LSFT(KC_V)) , LCTL(LSFT(KC_B)) , KC_NO   , KC_NO      , KC_NO   , KC_NO   , KC_NO   , KC_NO   , KC_NO   , KC_NO   ,           KC_TRNS,
-  KC_NO   , KC_ACL0 , KC_WH_D          , KC_WH_U          , KC_ACL2          , KC_NO            , KC_NO   , S(KC_MINS) , KC_HOME , KC_PGDN , KC_PGUP , KC_END  ,        LSFT(KC_4) ,           KC_TRNS,
-  KC_LSFT           , KC_NO            , KC_NO            , KC_NO            , KC_TAB           , KC_NO   , KC_NO      , KC_NO   , KC_NO   , KC_NO   , KC_NO   ,           KC_QUOT , KC_TRNS          ,
-  KC_LCTL , KC_LGUI , KC_LALT          ,                                               KC_NO                                               , KC_LSFT , KC_BSPC , KC_DEL  , KC_TRNS , KC_TRNS , KC_TRNS
+  KC_TRNS , KC_TRNS , KC_TRNS          , KC_TRNS          , KC_TRNS          , KC_TRNS          , KC_TRNS , KC_TRNS    , KC_TRNS    , KC_TRNS    , KC_TRNS    , KC_TRNS    , KC_TRNS , KC_TRNS ,           TG(5)  ,
+  KC_NO   , KC_NO   , KC_NO            , KC_NO            , KC_NO            , KC_NO            , KC_NO   , KC_NO      , KC_NO      , KC_NO      , KC_NO      , KC_NO      , KC_NO   , KC_NO   ,           KC_TRNS,
+  KC_NO   , KC_ESC  , LCTL(LSFT(KC_Z)) , LCTL(LSFT(KC_X)) , LCTL(LSFT(KC_V)) , LCTL(LSFT(KC_B)) , KC_NO   , LSFT(KC_1) , LSFT(KC_2) , LSFT(KC_3) , LSFT(KC_4) , LSFT(KC_5) , KC_NO   , KC_NO   ,           KC_TRNS,
+  KC_NO   , KC_ACL0 , KC_WH_D          , KC_WH_U          , KC_ACL2          , KC_NO            , KC_NO   , S(KC_MINS) , KC_HOME    , KC_PGDN    , KC_PGUP    , KC_END     ,        LSFT(KC_4) ,           KC_TRNS,
+  KC_LSFT           , KC_NO            , KC_NO            , KC_NO            , KC_TAB           , KC_NO   , LSFT(KC_6) , LSFT(KC_7) , LSFT(KC_8) , LSFT(KC_9) , LSFT(KC_0) ,           KC_QUOT , KC_TRNS          ,
+  KC_LCTL , KC_LGUI , KC_LALT          ,                                                  KC_NO                                                  , KC_LSFT    , KC_BSPC    , KC_DEL  , KC_TRNS , KC_TRNS , KC_TRNS
 ),
 
 //    ┌─────┬──────┬──────┬──────┬──────┬─────────┬─────────┬──────┬──────┬──────┬──────┬──────┬──────┬─────┐     ┌───────┐
@@ -209,7 +209,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //    ├─────────┼─────────┼─────────┼──────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┴──────┤      ├───────┤
 //    │  volu   │  lctl   │  lsft   │ lgui │  lalt   │  mply   │   no    │   no    │   f1    │   f2    │   f3    │   f4    │      ent       │      │  no   │
 //    ├─────────┴─────────┼─────────┼──────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼────────────────┼──────┼───────┘
-//    │       vold        │   no    │  no  │ SGUI(d) │  mprv   │   no    │   no    │   f9    │   f10   │   f11   │   f12   │      kp_/      │  up  │
+//    │       vold        │   no    │  no  │ SGUI(d) │  mprv   │   no    │   no    │   no    │   f9    │   f10   │   f11   │      f12       │  up  │
 //    ├─────────┬─────────┼─────────┼──────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┼─────────┼─────────┼─────────┬──────┼──────┼───────┐
 //    │  lctl   │  lgui   │   no    │                               f20                                │   no    │  bspc   │   del   │ left │ down │ rght  │
 //    └─────────┴─────────┴─────────┴──────────────────────────────────────────────────────────────────┴─────────┴─────────┴─────────┴──────┴──────┴───────┘
@@ -218,7 +218,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   RALT(KC_GRV) , RALT(KC_1) , RALT(KC_2) , KC_BRID , KC_BRIU    , RALT(KC_5) , RALT(KC_6) , RALT(KC_EQL) , RALT(KC_7) , RALT(KC_8) , RALT(KC_9) , RALT(KC_0) , RALT(KC_MINS) , KC_NO   ,           KC_TRNS,
   KC_MUTE      , RGB_VAD    , RGB_VAI    , KC_BRID , KC_BRIU    , KC_MNXT    , KC_NO      , KC_NO        , KC_F5      , KC_F6      , KC_F7      , KC_F8      , KC_NO         , KC_NO   ,           KC_NO  ,
   KC_VOLU      , KC_LCTL    , KC_LSFT    , KC_LGUI , KC_LALT    , KC_MPLY    , KC_NO      , KC_NO        , KC_F1      , KC_F2      , KC_F3      , KC_F4      ,                  KC_ENT ,           KC_NO  ,
-  KC_VOLD                   , KC_NO      , KC_NO   , SGUI(KC_D) , KC_MPRV    , KC_NO      , KC_NO        , KC_F9      , KC_F10     , KC_F11     , KC_F12     ,                 KC_PSLS , KC_UP            ,
+  KC_VOLD                   , KC_NO      , KC_NO   , SGUI(KC_D) , KC_MPRV    , KC_NO      , KC_NO        , KC_NO      , KC_F9      , KC_F10     , KC_F11     ,                  KC_F12 , KC_UP            ,
   KC_LCTL      , KC_LGUI    , KC_NO      ,                                         KC_F20                                          , KC_NO      , KC_BSPC    , KC_DEL        , KC_LEFT , KC_DOWN , KC_RGHT
 )
 };
@@ -237,7 +237,7 @@ enum combo_events {
     NAV_SHIFT_COMBO, // New combo
     LEADER,
     ERE_COMBO, // k+i+r for direct combo
-RALT_COMBO,
+    RALT_COMBO,
     COMBO_LENGTH
 };
 
@@ -250,24 +250,16 @@ const uint16_t PROGMEM combo_lctrl_r[]   = {LCTL_T(KC_A), LSFT_T(KC_S), COMBO_EN
 const uint16_t PROGMEM combo_lt_shift[]  = {LT(NAV, KC_SPC), KC_LSFT, COMBO_END}; // New combo
 
 const uint16_t PROGMEM leader_combo[] = {LALT_T(KC_F), KC_R, COMBO_END};
-const uint16_t PROGMEM ere_combo[] = { LALT_T(KC_F), KC_R, LSFT_T(KC_S), COMBO_END };
-const uint16_t PROGMEM ralt_combo[] = { RALT_T(KC_J), KC_U, COMBO_END };
+const uint16_t PROGMEM ere_combo[]    = {LALT_T(KC_F), KC_R, LSFT_T(KC_S), COMBO_END};
+const uint16_t PROGMEM ralt_combo[]   = {RALT_T(KC_J), KC_U, COMBO_END};
 
 // Define the combo actions
 combo_t key_combos[COMBO_LENGTH] = {
     // combo
-    [CAPS_LOCK_COMBO]  = COMBO(combo_g_h, KC_CAPS),
-    [SHIFT_GUI_COMBO]  = COMBO(combo_lsft_lgui, OSM(MOD_LSFT | MOD_LGUI)),
-    [CTRL_SHIFT_COMBO] = COMBO(combo_lctl_lsft, OSM(MOD_LCTL | MOD_LSFT)),
-    [CTRL_GUI_COMBO]   = COMBO(combo_lctl_lgui, OSM(MOD_LCTL | MOD_LGUI)),
-    [CTRL_R_COMBO]     = COMBO(combo_lctrl_r, LCTL(LSFT(KC_NO))),
-    [NAV_SHIFT_COMBO]  = COMBO(combo_lt_shift, MO(NAVMOD)),
-    [LEADER] = COMBO(leader_combo, QK_LEAD),
-    [ERE_COMBO] = COMBO_ACTION(ere_combo),
+    [CAPS_LOCK_COMBO] = COMBO(combo_g_h, KC_CAPS), [SHIFT_GUI_COMBO] = COMBO(combo_lsft_lgui, OSM(MOD_LSFT | MOD_LGUI)), [CTRL_SHIFT_COMBO] = COMBO(combo_lctl_lsft, OSM(MOD_LCTL | MOD_LSFT)), [CTRL_GUI_COMBO] = COMBO(combo_lctl_lgui, OSM(MOD_LCTL | MOD_LGUI)), [CTRL_R_COMBO] = COMBO(combo_lctrl_r, LCTL(LSFT(KC_NO))), [NAV_SHIFT_COMBO] = COMBO(combo_lt_shift, MO(NAVMOD)), [LEADER] = COMBO(leader_combo, QK_LEAD), [ERE_COMBO] = COMBO_ACTION(ere_combo),
     [RALT_COMBO] = COMBO(ralt_combo, KC_RALT)
 
 };
-
 
 static bool ik_ralt_pressed = false; // For combo to layer NAVMOD
 bool        combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
